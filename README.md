@@ -1,1 +1,99 @@
-# brain
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human-like Brain Simulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    #container {
+      text-align: center;
+      margin-top: 30px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    #output {
+      font-size: 20px;
+      margin-top: 20px;
+      color: #4CAF50;
+    }
+    #question-box {
+      font-size: 16px;
+      margin-top: 20px;
+      color: #9C27B0;
+    }
+    #memory-box {
+      font-size: 14px;
+      margin-top: 20px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Human-like Brain Simulation</h1>
+  <div id="container">
+    <input type="text" id="userInput" placeholder="Ask me something or tell me how you feel..." />
+    <button onclick="processInput()">Ask</button>
+    <div id="output"></div>
+    <div id="question-box"></div>
+    <div id="memory-box"></div>
+  </div>
+
+  <script>
+    // Learning memory to simulate human-like memory
+    let memory = [];
+
+    // Process user input and generate a human-like response
+    function processInput() {
+      const userInput = document.getElementById("userInput").value.toLowerCase();
+      let response = '';
+      let followUpQuestion = '';
+      
+      // Emotional recognition and basic responses
+      if (userInput.includes("happy") || userInput.includes("good")) {
+        response = "That's great to hear! What made you feel happy today?";
+      } else if (userInput.includes("sad") || userInput.includes("bad")) {
+        response = "I'm sorry you're feeling down. Do you want to talk about it?";
+      } else if (userInput.includes("tired")) {
+        response = "Sounds like you need some rest. How long have you been feeling tired?";
+      } else if (userInput.includes("angry")) {
+        response = "I can understand frustration. Do you want to share what's bothering you?";
+      } else {
+        response = "Hmm, I see. Can you tell me more about that?";
+      }
+      
+      // Learning memory: Storing the interaction
+      memory.push(userInput);
+      document.getElementById("memory-box").innerHTML = `<strong>Memory:</strong><br>We've talked about: <br>${memory.join('<br>')}`;
+
+      // Asking follow-up questions
+      if (response.includes("What")) {
+        followUpQuestion = response;
+      }
+
+      // Displaying response and question
+      document.getElementById("output").innerHTML = response;
+      document.getElementById("question-box").innerHTML = followUpQuestion;
+
+      // Clear input field
+      document.getElementById("userInput").value = '';
+    }
+  </script>
+</body>
+</html>
